@@ -1,0 +1,41 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: dynamo-test-dynamodb
+  description: DynamoDB table dynamo-test (PAY_PER_REQUEST) in ap-northeast-2
+  annotations:
+    github.com/project-slug: SAMJOYAP/dynamo-test
+  labels:
+    type: dynamodb
+    region: ap-northeast-2
+    managed-by: terraform
+spec:
+  type: database
+  owner: platform-team
+  lifecycle: production
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: dynamo-test
+  description: Terraform configuration for DynamoDB table
+  annotations:
+    github.com/project-slug: SAMJOYAP/dynamo-test
+    backstage.io/techdocs-ref: dir:.
+  labels:
+    infrastructure: terraform
+    cloud: aws
+    resource-type: dynamodb
+  links:
+    - url: https://github.com/SAMJOYAP/dynamo-test.git
+      title: Repository
+      icon: github
+    - url: https://github.com/SAMJOYAP/dynamo-test.git/actions
+      title: GitHub Actions
+      icon: github
+spec:
+  type: infrastructure
+  lifecycle: production
+  owner: platform-team
+  dependsOn:
+    - resource:default/dynamo-test-dynamodb
